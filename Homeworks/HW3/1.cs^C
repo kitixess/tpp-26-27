@@ -1,0 +1,108 @@
+using System;
+public class Character
+{
+    private string name;
+    private int hp;
+    private int power;
+    private static int count;
+
+    public Character(string name, int hp, int power)
+    {
+        this.name = name;
+        this.hp = hp;
+        this.power = power;
+        count++;
+    }
+
+    public string Name
+    {
+        get 
+        {
+            return name;
+        }
+        set
+        {
+            name = value; 
+        }
+    }
+
+    public int HP
+    {
+        get 
+        {
+            return hp;
+        }
+        set
+        {
+            if (value < 0)
+                hp = 0;
+            else
+                hp = value;
+        }
+    }
+
+    public int Power
+    {
+        get { return power; }
+        set { power = value; }
+    }
+
+    public virtual void Attack(Character target)
+    {
+        target.HP -= this.power;
+        Console.WriteLine($"{this.name} атакует {target.name} и наносит {this.power} урона");
+    }
+
+    public void GetStatus()
+    {
+        Console.WriteLine($"Персонаж: {name}, Здоровье: {hp}");
+    }
+
+    public static int HowMany()
+    {
+        return count;
+    }
+
+    public static bool IsValidStats(int hp, int power)
+    {
+        if (hp > 0 & power > 0)
+        {
+            return true;
+        }
+        else return false;
+    }
+}
+
+public class Player : Character
+{
+    public Player(string name, int hp, int power) : base(name, hp, power)
+    {
+    }
+
+    public override void Attack(Character target)
+    {
+        Console.WriteLine($"Игрок {Name} наносит удар!");
+        target.HP -= this.Power;
+    }
+}
+
+public class Enemy : Character
+{
+    public Enemy(string name, int hp, int power) : base(name, hp, power)
+    {
+    }
+
+    public override void Attack(Character target)
+    {
+        Console.WriteLine($"Враг {Name} атакует!");
+        target.HP -= this.Power;
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        
+    }
+}
